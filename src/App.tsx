@@ -331,8 +331,6 @@ export default function App() {
 
     try {
       const url = "/api/rewrite";
-      console.log("REQUEST URL:", url);
-
       const res = await fetch(url, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -343,10 +341,7 @@ export default function App() {
         })
       });
 
-      console.log("STATUS:", res.status);
-      console.log("URL:", res.url);
       const contentType = res.headers.get("content-type");
-      console.log("Content-Type:", contentType);
 
       // Check defensive HTTP response ok flag first
       if (!res.ok) {
