@@ -594,6 +594,33 @@ export default function App() {
               </div>
             </div>
 
+            {/* Bottom Controls - High contrast button exactly matching Vercel/Linear look, positioned right below input typing space */}
+            <div className="flex items-center gap-2">
+              {/* Voice Record hands free button */}
+              <button 
+                onClick={toggleSpeech}
+                className={`p-3 border border-stone-800 rounded-lg transition-all cursor-pointer ${
+                  isListening
+                    ? "bg-red-950/80 text-white animate-pulse border-red-850"
+                    : "hover:bg-stone-900 text-white bg-transparent"
+                }`}
+                title={isListening ? "Pause transmission dictation" : "Dictate statement hands-free"}
+              >
+                {isListening ? <MicOff size={16} /> : <Mic size={16} />}
+              </button>
+
+              <button
+                onClick={() => handleSubmit()}
+                disabled={isAnalyzing || !inputText.trim()}
+                className={`flex-1 py-3 font-display font-black text-xs tracking-widest uppercase transition-all sketch-button-black cursor-pointer flex items-center justify-center gap-2 ${
+                  !inputText.trim() ? "opacity-35 pointer-events-none" : ""
+                }`}
+              >
+                <Sparkles size={14} className={isAnalyzing ? "animate-spin" : "animate-pulse"} />
+                {spellingOnly ? "CALIBRATE SPELLING" : "CALIBRATE GRAMMAR"}
+              </button>
+            </div>
+
             {/* SPELLING CORRECTOR SECTION */}
             <div className="bg-[#0f0f12] border border-stone-850 rounded-xl p-3.5 space-y-2.5 font-mono text-[10px] shadow-[inset_0_1px_1px_rgba(255,255,255,0.02)]">
               <div className="flex items-center justify-between">
@@ -621,37 +648,6 @@ export default function App() {
                 <span className={`w-1.5 h-1.5 rounded-full ${spellingOnly ? "bg-emerald-400 animate-pulse shadow-[0_0_8px_rgba(52,211,153,0.6)]" : "bg-stone-600"}`} />
                 {spellingOnly ? "SPELLCHECK MODE ACTIVE" : "ENABLE SPELLCHECK ONLY"}
               </button>
-            </div>
-
-            {/* REWRITE INTENSITY SLIDER */}
-            <div className={`bg-[#0f0f12] border border-stone-850 rounded-xl p-3.5 space-y-2.5 font-mono text-[10px] shadow-[inset_0_1px_1px_rgba(255,255,255,0.02)] transition-all duration-300 ${spellingOnly ? "opacity-35 pointer-events-none" : ""}`}>
-              <div className="flex items-center justify-between">
-                <span className="text-[#A0A0A0] uppercase tracking-wider font-bold block text-[9px]">
-                  REWRITE AGGRESSIVENESS LENS
-                </span>
-                <span className="text-emerald-400 font-extrabold text-[10px] tracking-wider uppercase">
-                  {currentIntensity}
-                </span>
-              </div>
-              <div className="flex items-center gap-3">
-                <input
-                  type="range"
-                  min="0"
-                  max="2"
-                  value={intensityIndex}
-                  onChange={(e) => {
-                    const idx = parseInt(e.target.value);
-                    setIntensityIndex(idx);
-                  }}
-                  disabled={spellingOnly}
-                  className="flex-1 accent-emerald-500 h-1 bg-[#09090b] rounded-lg appearance-none cursor-pointer border border-stone-900"
-                />
-              </div>
-              <div className="flex items-center justify-between text-[8px] text-stone-500 font-bold uppercase tracking-tight">
-                <span className={intensityIndex === 0 ? "text-emerald-400" : ""}>Subtle</span>
-                <span className={intensityIndex === 1 ? "text-emerald-400" : ""}>Moderate</span>
-                <span className={intensityIndex === 2 ? "text-emerald-400" : ""}>Radical</span>
-              </div>
             </div>
 
             {/* REAL-TIME LINGUISTIC TELEMETRY PANEL */}
@@ -707,33 +703,6 @@ export default function App() {
                 </div>
               );
             })()}
-
-            {/* Bottom Controls inside Card - High contrast button exactly matching Vercel/Linear look */}
-            <div className="flex items-center gap-2">
-              {/* Voice Record hands free button */}
-              <button 
-                onClick={toggleSpeech}
-                className={`p-3 border border-stone-800 rounded-lg transition-all cursor-pointer ${
-                  isListening
-                    ? "bg-red-950/80 text-white animate-pulse border-red-850"
-                    : "hover:bg-stone-900 text-white bg-transparent"
-                }`}
-                title={isListening ? "Pause transmission dictation" : "Dictate statement hands-free"}
-              >
-                {isListening ? <MicOff size={16} /> : <Mic size={16} />}
-              </button>
-
-              <button
-                onClick={() => handleSubmit()}
-                disabled={isAnalyzing || !inputText.trim()}
-                className={`flex-1 py-3 font-display font-black text-xs tracking-widest uppercase transition-all sketch-button-black cursor-pointer flex items-center justify-center gap-2 ${
-                  !inputText.trim() ? "opacity-35 pointer-events-none" : ""
-                }`}
-              >
-                <Sparkles size={14} className={isAnalyzing ? "animate-spin" : "animate-pulse"} />
-                {spellingOnly ? "CALIBRATE SPELLING" : "CALIBRATE GRAMMAR"}
-              </button>
-            </div>
 
           </div>
 
