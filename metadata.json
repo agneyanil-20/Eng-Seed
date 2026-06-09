@@ -1,0 +1,6 @@
+{
+  "name": "ENG SEED",
+  "description": "ENG SEED is an AI-powered helper that corrects your grammar and instantly rewrites your sentences to fit multiple situations and contexts.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
